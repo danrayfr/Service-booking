@@ -4,16 +4,16 @@
 </div>
 
           
-<div class="mx-auto max-w-3xl p-8 grow">
+<div class="mx-auto max-w-3xl p-8 grow mb-6">
   <div>
     <h2 class="text-gray-800 text-5xl mb-2"><%= @service.name %></h2>
-    <p class="text-sm">Available on
-    <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y %H:%M") %> <%= @service.available_time.strftime("%H:%M %p")%></span>.
+    <p class="font-weight-900">Available on
+    <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y %H:%M") %></span>.
     </p>
             
     <div class="content post mb-6 mt-6">
       <div class="mb-6">
-        <%= image_tag(@service.image, class: "w-full h-96 object-fit rounded-lg shadow-md")%>
+        <%= image_tag(@service.image, class: "w-full h-96 object-fit rounded-lg shadow-md") if @service.image.persisted? %>
       </div>
       <p class="text-gray-900 font-bold text-xl mb-2"><span class="text-gray-700 text-md font-normal">Price: </span>₱<%= @service.price%></p>
       <div class="">
@@ -21,8 +21,39 @@
       </div>
     </div>
   </div>
+  
+<div class="border border-gray-300 rounded-lg p-4 mb-6">
+  <div class="flex items-center mb-2">
+    <div class="text-gray-500 mr-2">
+      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M2.5 4a.5.5 0 01.5-.5h1A1.5 1.5 0 004.5 3h11a1.5 1.5 0 011.5 1.5v11a1.5 1.5 0 01-1.5 1.5h-11a1.5 1.5 0 00-1.5 1.5v1a.5.5 0 01-1 0v-1A2.5 2.5 0 012.5 15v-11zM16 6.5a.5.5 0 01.5.5v7a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-7a.5.5 0 01.5-.5h7zM3 5h9v9H3V5z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <h2 class="text-lg font-medium text-gray-900"> <%= @service.available_slots.count %> Schedule</h2>
+  </div>
+  <% @service.available_slots.each do |slot| %>
+  <div class="flex items-center">
+    <div class="flex-1">
+      <div class="text-sm font-medium text-gray-500">Start Time</div>
+      <div class="text-lg font-bold text-gray-900 mb-2"><%= Time.parse(slot['start_time']).strftime("%l:%M %p") %></div>
+    </div>
+    <div class="flex-1">
+      <div class="text-sm font-medium text-gray-500">End Time</div>
+      <div class="text-lg font-bold text-gray-900 mb-2"><%= Time.parse(slot['end_time']).strftime("%l:%M %p") %></div>
+    </div>
+    <div class="flex-1">
+      <div class="text-sm font-medium text-gray-500">Available Slot</div>
+      <div class="text-lg font-bold text-gray-900 mb-2"><%= slot['slots'] %></div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
   <div>
     <%= link_to "Edit", edit_service_path(@service.id), class: button_class(theme: "primary") if current_user.admin? %>
     <%= link_to "delete", @service, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
   </div>
 </div>
+
+
+

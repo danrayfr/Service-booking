@@ -15,6 +15,8 @@ class ServicesController < ApplicationController
   def create
     if current_user.admin?
       @service = current_user.services.build(service_params)
+      @service.available_slots = set_available_slots
+  
       respond_to do |format|
         if @service.save
           format.html { redirect_to services_path, notice: "Service was successfully created." }
@@ -31,6 +33,15 @@ class ServicesController < ApplicationController
   def update
     if current_user.admin?
       @service.user_id = current_user.id
+
+      available_slots = []
+      params[:start_time]&.each_with_index do |start_time, index|
+        end_time = params[:end_time][index]
+        slots = params[:available_slots][index]
+        slot = { start_time: start_time, end_time: end_time, slots: slots.to_i }
+        available_slots << slot
+      end
+      @service.available_slots = available_slots
 
       respond_to do |format|
         if @service.update(service_params)
@@ -58,6 +69,17 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-      params.require(:service).permit(:name, :description, :image, :price, :available_date, :available_time, :user_id)
+      params.require(:service).permit(:name, :description, :image, :price, :available_date, :user_id, available_slots: [])
+  end
+
+  def set_available_slots
+    available_slots = []
+    params[:start_time]&.each_with_index do |start_time, index|
+      end_time = params[:end_time][index]
+      slots = params[:available_slots][index]
+      slot = { start_time: start_time, end_time: end_time, slots: slots.to_i }
+      available_slots << slot
+    end
+    available_slots
   end
 end

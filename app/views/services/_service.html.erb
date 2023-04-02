@@ -1,15 +1,15 @@
 <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
   <div>
-    <%= image_tag(service.image, class: "w-full h-96 object-cover rounded-lg shadow-md")%>
+    <%= image_tag(service.image, class: "w-full h-96 object-cover rounded-lg shadow-md") if service.image.persisted? %>
     <div class="relative px-4 -mt-16">
       
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <div class="flex items-baseline">
           <span class="bg-gray-200 text-gray-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
-              Open
+              <%= service.available_slots.count %> Time Schedule
             </span>
           <div class="ml-2 text-gray-600 uppercase text-xs font-semibold tracking-wider">
-            Available Time  &bull; <%= service.available_date.strftime("%B %d %Y")%>  &bull; <%= service.available_time.strftime("%H:%M %p")%>
+            Available Time  &bull; <%= service.available_date.strftime("%B %d %Y")%>  &bull; <%#= service.available_time.strftime("%H:%M %p")%>
           </div>
         </div>
         <%= link_to service_path(service) do%>
