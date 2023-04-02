@@ -72,4 +72,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "minitest", "~> 5.17"
+  gem "minitest-reporters", "~> 1.5"
 end
+
+gem "tailwindcss-rails", "~> 2.0"
+gem "devise"
+gem 'name_of_person'
