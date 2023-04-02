@@ -1,0 +1,24 @@
+<%= form_with(model: @category, id: "#{dom_id(@category)}_form") do |form| %>
+  <%= render "shared/error_messages", object: form.object %>
+
+  <div class="mb-6" >
+    <%= form.label :name, class: label_class %>
+    <%= form.text_field :name, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :description, class: label_class %>
+    <%= form.rich_text_area :description, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :image, class: label_class %>
+    <%= form.file_field :image, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.submit "Create", class: button_class(theme: "primary")%>
+  </div>
+
+<% end %>
+

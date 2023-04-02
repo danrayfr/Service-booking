@@ -1,6 +1,11 @@
 <%= form_with(model: @service, id: "#{dom_id(@service)}_form") do |form| %>
   <%= render "shared/error_messages", object: form.object %>
 
+  <div class="mb-6">
+    <%= form.label :category_id, class: label_class %>
+    <%= form.select :category_id, options_for_select(@categories.map{ |cat| [cat.name, cat.id] }), {}, { class: input_class } %>
+  </div>
+
   <div class="mb-6" >
     <%= form.label :name, class: label_class %>
     <%= form.text_field :name, class: input_class %>

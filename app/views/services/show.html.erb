@@ -1,12 +1,12 @@
-<% provide(:title, "#{@service.name}")%>
+<% provide(:title, "#{@service.name.capitalize}")%>
 <div class="flex items-center justify-between pb-6 border-b mb-6">
-  <h1 class="text-5xl font-bold text-gray-700"><%= @service.name %>'s service</h1>
+  <h1 class="text-5xl font-bold text-gray-700"><%= @service.name.capitalize %>'s service</h1>
 </div>
 
           
 <div class="mx-auto max-w-3xl p-8 grow mb-6">
   <div>
-    <h2 class="text-gray-800 text-5xl mb-2"><%= @service.name %></h2>
+    <h2 class="text-gray-800 text-5xl mb-2"><%= @service.name.capitalize %></h2>
     <p class="font-weight-900">Available on
     <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y %H:%M") %></span>.
     </p>
