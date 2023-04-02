@@ -1,0 +1,12 @@
+<% provide(:title, "Home")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700">Service Booking</h1>
+  
+  <% if current_page?(root_path) || current_page?(dashboard_path) %>
+    <%  if user_signed_in?%>
+      <p class="text-gray-700 text-2xl">
+        Welcome, <%= current_user.name %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
