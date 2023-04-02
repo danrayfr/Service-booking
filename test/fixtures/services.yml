@@ -1,0 +1,11 @@
+# supremo:
+#   name: "Supremo"
+#   price: 200
+#   available_date_time: "2023-04-02 12:00:00"
+#   user: danray
+# 
+# vape:
+#   name: "Vape"
+#   price: 300
+#   available_date_time: "2023-04-02 12:00:00"
+#   user: xavier

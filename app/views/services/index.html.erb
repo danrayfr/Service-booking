@@ -1,0 +1,15 @@
+<% provide(:title, "Services")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700">Services</h1>
+  <%= link_to "Add Service", new_service_path, class: button_class(theme: "primary") if user_signed_in? && current_user.admin? %>
+</div>
+
+<div class="flex flex-wrap -mx-1 lg:-mx-4 mt-2">
+  <% if @services.any? %>
+    <% @services.each do |service| %> 
+      <%= render "service", service: service%>
+    <% end %>
+  <% else %> 
+    <p>No services available yet.</p>
+  <% end %>
+</div>

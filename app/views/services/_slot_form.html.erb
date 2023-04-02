@@ -1,0 +1,22 @@
+  <div class="js-slot-form" data-target="services.template">
+  <div class="flex flex-wrap -mx-1 lg:-mx-4 mt-2 gap-6">
+    <div class="mb-6">
+      <label for="start_time" class="<%= label_class %>%>">Start Time</label>
+      <input type="time" name="start_time[]" class="js-start-time <%= input_class %>%>">
+    </div>
+
+    <div class="mb-6">
+      <label for="end_time" class="<%= label_class %>%>">End Time</label>
+      <input type="time" name="end_time[]" class="js-end-time <%= input_class %>">
+    </div>
+
+    <div class="mb-6">
+      <label for="available_slots" class="<%= label_class %>%>">Available Slots</label>
+      <input type="number" name="available_slots[]" class="js-available-slots <%= input_class %>">
+    </div>
+
+    <div class="mb-6">
+      <!--button data-action="services#removeSlot" type="button" class="js-remove-slot">Remove Slot</button-->
+    </div>
+  </div>
+</div>

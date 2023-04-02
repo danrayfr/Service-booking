@@ -1,0 +1,46 @@
+<%= form_with(model: @service, id: "#{dom_id(@service)}_form") do |form| %>
+  <%= render "shared/error_messages", object: form.object %>
+
+  <div class="mb-6" >
+    <%= form.label :name, class: label_class %>
+    <%= form.text_field :name, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :description, class: label_class %>
+    <%= form.rich_text_area :description, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :image, class: label_class %>
+    <%= form.file_field :image, class: input_class %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :price, class: label_class %>
+    <%= form.text_field :price, class: input_class %>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+    <div class="mb-6">
+      <%= form.label :available_date, class: label_class %>
+      <%= form.date_field :available_date, class: input_class %>
+    </div>
+    
+    <div class="mb-6">
+      <label class="<%= label_class %>" for="service_available_time">Available Times</label>
+      <div data-controller="services">
+        <div data-target="services.slots" class="space-y-3">
+          <%= render "slot_form" %>
+        </div>
+        <button data-action="services#addSlot" type="button" class="mt-2 btn btn-primary">Add Slot</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <%= form.submit "Create", class: button_class(theme: "primary")%>
+  </div>
+
+<% end %>
+
