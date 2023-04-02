@@ -2,11 +2,12 @@ class ServicesController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :admin_user, except: %i(index show)
   before_action :set_service, only: %i(show edit update destroy)
+  before_action :set_categories, only: %i(new edit)
   def index
     @services = Service.all.includes(:user)
   end
 
-  def show;end
+  def show; end
 
   def new
     @service = current_user.services.build
@@ -20,8 +21,9 @@ class ServicesController < ApplicationController
       respond_to do |format|
         if @service.save
           format.html { redirect_to services_path, notice: "Service was successfully created." }
-        end
+        else
           format.html { render :new, status: :unprocessable_entity }
+        end
       end
     else
       flash[:error] = "You must be an admin to create a new service."
@@ -68,8 +70,12 @@ class ServicesController < ApplicationController
     @service = Service.friendly.find(params[:id])
   end
 
+  def set_categories
+    @categories = Category.all.order(:name)
+  end
+
   def service_params
-      params.require(:service).permit(:name, :description, :image, :price, :available_date, :user_id, available_slots: [])
+      params.require(:service).permit(:name, :description, :image, :price, :available_date, :user_id, :category_id, available_slots: [])
   end
 
   def set_available_slots
@@ -82,4 +88,5 @@ class ServicesController < ApplicationController
     end
     available_slots
   end
+  
 end

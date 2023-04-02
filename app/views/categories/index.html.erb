@@ -1,0 +1,15 @@
+<% provide(:title, "Categories")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700">Categories</h1>
+  <%= link_to "Add Category", new_category_path, class: button_class(theme: "primary") if user_signed_in? && current_user.admin? %>
+</div>
+
+<div class="flex flex-wrap -mx-1 lg:-mx-4 mt-2 gap-6">
+<% if @categories.any? %>
+  <% @categories.each do |category| %> 
+      <%= render "category", category: category %>
+    <% end %>
+  <% else %> 
+    <p>No categories available yet.</p>
+  <% end %>
+</div>

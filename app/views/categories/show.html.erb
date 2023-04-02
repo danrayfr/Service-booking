@@ -1,0 +1,23 @@
+<% provide(:title, "#{@category.name.capitalize }")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700"><%= @category.name.capitalize %>'s category</h1>
+</div>
+
+<div class="mx-auto max-w-3xl p-8 grow mb-6">
+  <div>
+    <h2 class="text-gray-800 text-5xl mb-2"><%= @category.name.capitalize %></h2>            
+    <div class="content post mb-6 mt-6">
+      <div class="mb-6">
+        <%= image_tag(@category.image, class: "w-full h-96 object-fit rounded-lg shadow-md") if @category.image.persisted? %>
+      </div>
+      <div class="">
+        <%= @category.description.to_s %>
+      </div>
+    </div>
+  </div>
+  
+  <div>
+    <%= link_to "Edit", edit_category_path(@category.id), class: button_class(theme: "primary") if current_user.admin? %>
+    <%= link_to "delete", @category, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
+  </div>
+</div>
