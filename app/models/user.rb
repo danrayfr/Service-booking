@@ -10,4 +10,7 @@ class User < ApplicationRecord
   validates_format_of :mobile, :with =>  /\d[0-9]\)*\z/ , :message => "Only positive number without spaces are allowed"
 
   enum :role, %i(user admin)
+
+  # Model relationship
+  has_many :services, dependent: :destroy
 end

@@ -1,4 +1,5 @@
-danray: 
+danray:
+  id: 1 
   first_name: "DanRay"
   last_name: "Rollan"
   mobile: "09560635541"
@@ -6,6 +7,7 @@ danray:
   role: "admin"
 
 xavier: 
+  id: 2
   first_name: "Xavier"
   last_name: "Rollan"
   mobile: "09995556666"

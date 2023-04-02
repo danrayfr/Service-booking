@@ -1,0 +1,28 @@
+<% provide(:title, "#{@service.name}")%>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+  <h1 class="text-5xl font-bold text-gray-700"><%= @service.name %>'s service</h1>
+</div>
+
+          
+<div class="mx-auto max-w-3xl p-8 grow">
+  <div>
+    <h2 class="text-gray-800 text-5xl mb-2"><%= @service.name %></h2>
+    <p class="text-sm">Available on
+    <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y %H:%M") %> <%= @service.available_time.strftime("%H:%M %p")%></span>.
+    </p>
+            
+    <div class="content post mb-6 mt-6">
+      <div class="mb-6">
+        <%= image_tag(@service.image, class: "w-full h-96 object-fit rounded-lg shadow-md")%>
+      </div>
+      <p class="text-gray-900 font-bold text-xl mb-2"><span class="text-gray-700 text-md font-normal">Price: </span>₱<%= @service.price%></p>
+      <div class="">
+        <%= @service.description.to_s %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <%= link_to "Edit", edit_service_path(@service.id), class: button_class(theme: "primary") if current_user.admin? %>
+    <%= link_to "delete", @service, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
+  </div>
+</div>
