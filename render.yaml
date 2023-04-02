@@ -1,0 +1,18 @@
+databases:
+  - name: servicedb
+    databaseName: servicedb
+    user: servicedb
+
+services:
+  - type: web
+    name: service-booking
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: servicedb
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
