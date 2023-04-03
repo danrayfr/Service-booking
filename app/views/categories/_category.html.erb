@@ -3,9 +3,7 @@
   relative overflow-hidden" do %>
   <%= image_tag(category.image, class: "h-48 w-48 object-cover rounded-lg shadow-md mb-6") if category.image.persisted? %>
     <div class="w-full absolute top-0 left-0 right-0"></div>
-  <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-      <h3 class="font-medium text-2l"><%= category.name.capitalize %></h3>
-      <p class="text-gray-500"><%= category.description.to_plain_text.truncate(20) %></p>
-  </div>
+  <h3 class="font-medium text-2l"><%= category.name.capitalize %></h3>
+  <p class="text-gray-500"><%= category.description.to_plain_text.truncate(20) %></p>
 <% end %>
 </div>

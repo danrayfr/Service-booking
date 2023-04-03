@@ -1,5 +1,5 @@
 <% provide(:title, "Categories")%>
-<div class="flex items-center justify-between pb-6 border-b">
+<div class="flex items-center justify-between pb-6 border-b mb-6">
   <h1 class="text-5xl font-bold text-gray-700">Categories</h1>
   <%= link_to "Add Category", new_category_path, class: button_class(theme: "primary") if user_signed_in? && current_user.admin? %>
 </div>
