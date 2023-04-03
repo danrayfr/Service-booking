@@ -1,0 +1,13 @@
+<% provide(:title, "Payments")%>
+<div class="flex items-center justify-between pb-6 border-b mb-2">
+  <h1 class="text-5xl font-bold text-gray-700">Payments</h1>
+  <%= link_to "Add payment", new_payment_path, class: button_class(theme: "primary") if user_signed_in? && current_user.admin? %>
+</div>
+
+<h2 class="mb-2 text-lg font-semibold text-gray-900">Payment options</h2>
+<ul class="max-w-md space-y-1 text-gray-700 list-disc list-inside">
+  <% @payments.each do |payment| %>
+    <li><%= payment.name %></li>
+  <% end %>
+</ul>
+

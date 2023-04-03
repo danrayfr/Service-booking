@@ -17,4 +17,5 @@ class Service < ApplicationRecord
   belongs_to :user
   belongs_to :category
   has_many :slots
+  has_many :bookings, dependent: :destroy
 end

@@ -1,0 +1,5 @@
+<% provide(:title, "Payments")%>
+<div class="flex items-center justify-between pb-6 border-b mb-2">
+  <h1 class="text-5xl font-bold text-gray-700">Add new payment</h1>
+  <%= link_to "Add new payment method", "#", class: button_class(theme: "primary") if user_signed_in? && current_user.admin? %>
+</div>

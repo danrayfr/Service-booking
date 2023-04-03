@@ -7,10 +7,12 @@
 <div class="mx-auto max-w-3xl p-8 grow mb-6">
   <div>
     <h2 class="text-gray-800 text-5xl mb-2"><%= @service.name.capitalize %></h2>
+    <span class="bg-yellow-200 text-yellow-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+      <%= @service.category.name %>
+    </span>
     <p class="font-weight-900">Available on
-    <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y %H:%M") %></span>.
+    <span datetime="Sat Oct 08 2016 19:00:00 GMT-0500 (Central Daylight Time)"><%= @service.available_date.strftime("%B %d %Y") %></span>.
     </p>
-            
     <div class="content post mb-6 mt-6">
       <div class="mb-6">
         <%= image_tag(@service.image, class: "w-full h-96 object-fit rounded-lg shadow-md") if @service.image.persisted? %>

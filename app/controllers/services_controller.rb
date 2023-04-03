@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :admin_user, except: %i(index show)
+  before_action :admin_user
   before_action :set_service, only: %i(show edit update destroy)
   before_action :set_categories, only: %i(new edit)
   def index

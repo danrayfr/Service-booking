@@ -1,0 +1,72 @@
+<% provide(:title, "Book a service")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700">Book a service</h1>
+  
+  <% if current_page?(root_path) || current_page?(dashboard_path) %>
+    <%  if user_signed_in?%>
+      <p class="text-gray-700 text-2xl">
+        Welcome, <%= current_user.name %>
+      </p>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="flex flex-wrap -mx-1 lg:-mx-4 mt-2 mb-12">
+  <% if @services.any? %>
+    <% @services.each do |service| %> 
+      <%= render "book", service: service%>
+    <% end %>
+  <% else %> 
+    <p>No services available yet.</p>
+  <% end %>
+</div>
+
+<% if user_signed_in? %>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+  <h1 class="text-5xl font-bold text-gray-700">Current booked service</h1>
+</div>
+
+<% if @bookings.any? %>
+<div class="relative overflow-x-auto mt-6 mb-6">
+  <table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-gray-800 uppercase bg-gray-300">
+      <tr>
+        <th class="px-6 py-6" scope="col">#</th>
+        <th class="px-6 py-6" scope="col">Status</th>
+        <th class="px-6 py-6" scope="col">service name</th>
+        <th class="px-6 py-6" scope="col">description</th>
+        <th class="px-6 py-6" scope="col">price</th>
+        <th class="px-6 py-6" scope="col">booked date</th>
+        <th class="px-6 py-6" scope="col">booked time</th>
+        <th class="px-6 py-6" scope="col">booked slots</th>
+        <th class="px-6 py-6" scope="col">payment method</th>
+        <th class="px-6 py-6" scope="col">booked Last</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <% @bookings.where(user_id: current_user).each do |book| %>
+        <tr class="border-b">
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.id %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.status %></td>
+          <td scope="row" class="px-6 py-6 font-medium  whitespace-nowrap">
+            <%= link_to book.service.name, booking_path(book.service), class:"font-medium text-sky-700 uppercase" %>
+          </td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.service.description %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.service.price %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.service.available_date.strftime("%B %e, %Y") %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.booked_time.strftime("%I:%M %p") %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.slot %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.payment.name %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= time_ago_in_words(book.created_at) %> ago</td>
+        </tr>
+        <%= "#{book.billing.address.street} #{book.billing.address.city}" %>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+<% else %>
+<p>You don't have any bookings yet...</p>
+<% end %>
+<% end %>
