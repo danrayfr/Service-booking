@@ -1,0 +1,33 @@
+<%= form_with(model: billing, class: "contents") do |form| %>
+  <%= render "shared/error_messages", object: form.object %>
+
+  <%= form.fields_for :address do |address_form| %>
+    <div class="mb-6">
+        <%= address_form.label :street, class: label_class %>
+        <%= address_form.text_field :street, class: input_class %>
+      </div>
+      <div class="mb-6">
+        <%= address_form.label :barangay, class: label_class %>
+        <%= address_form.text_field :barangay, class: input_class %>
+      </div>
+
+      <div class="mb-6">
+        <%= address_form.label :city, class: label_class %>
+        <%= address_form.text_field :city, class: input_class %>
+      </div>
+
+      <div class="mb-6">
+        <%= address_form.label :province, class: label_class %>
+        <%= address_form.text_field :province, class: input_class %>
+      </div>
+
+      <div class="mb-6">
+        <%= address_form.label :zipcode, class: label_class %>
+        <%= address_form.text_field :zipcode, class: input_class %>
+      </div>
+  <% end %>
+
+  <div class="mb-6">
+    <%= form.submit class: button_class(theme: "primary", variant: "expanded") %>
+  </div>
+<% end %>

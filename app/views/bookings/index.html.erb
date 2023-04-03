@@ -60,9 +60,11 @@
           <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.payment.name %></td>
           <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= time_ago_in_words(book.created_at) %> ago</td>
         </tr>
+        <%= "#{book.billing.address.street} #{book.billing.address.city}" %>
       <% end %>
     </tbody>
   </table>
+
 </div>
 <% else %>
 <p>You don't have any bookings yet...</p>

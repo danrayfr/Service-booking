@@ -11,6 +11,9 @@ class BookingsController < ApplicationController
     @booking = current_user.bookings.build
   end
 
+  def new
+  end
+
   def create
     @booking = current_user.bookings.build(booking_params)
 
@@ -50,6 +53,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:status, :user_id, :service_id, :payment_id, :booked_time, :slot)
+    params.require(:booking).permit(:status, :user_id, :service_id, :payment_id, :booked_time, :slot, :billing_id)
   end
 end 

@@ -1,0 +1,8 @@
+<% provide(:title, "Billing")%>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+  <h1 class="text-5xl font-bold text-gray-700"><%= @billing.user.first_name.capitalize %>'s billing information</h1>
+</div>
+  <%= render "form", billing: @billing %>
+
+  <%= link_to 'Back to billings', billings_path, class: button_class(theme: "dark", variant: "expanded")%>
+</div>

@@ -14,4 +14,5 @@ class User < ApplicationRecord
   # Model relationship
   has_many :services, dependent: :destroy
   has_many :bookings, dependent: :destroy
+  has_many :billings, dependent: :destroy
 end
