@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_072128) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "status"
+    t.integer "status", default: 0
     t.bigint "user_id", null: false
     t.bigint "service_id", null: false
     t.bigint "payment_id", null: false

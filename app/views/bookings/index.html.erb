@@ -21,15 +21,18 @@
   <% end %>
 </div>
 
+<% if user_signed_in? %>
 <div class="flex items-center justify-between pb-6 border-b mb-6">
   <h1 class="text-5xl font-bold text-gray-700">Current booked service</h1>
 </div>
 
+<% if @bookings.any? %>
 <div class="relative overflow-x-auto mt-6 mb-6">
   <table class="w-full text-sm text-left text-gray-500">
     <thead class="text-xs text-gray-800 uppercase bg-gray-300">
       <tr>
         <th class="px-6 py-6" scope="col">#</th>
+        <th class="px-6 py-6" scope="col">Status</th>
         <th class="px-6 py-6" scope="col">service name</th>
         <th class="px-6 py-6" scope="col">description</th>
         <th class="px-6 py-6" scope="col">price</th>
@@ -41,9 +44,11 @@
       </tr>
     </thead>
     <tbody>
+    
       <% @bookings.where(user_id: current_user).each do |book| %>
         <tr class="border-b">
           <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.id %></td>
+          <td class="px-6 py-6 font-normal text-gray-600 whitespace-normal"><%= book.status %></td>
           <td scope="row" class="px-6 py-6 font-medium  whitespace-nowrap">
             <%= link_to book.service.name, booking_path(book.service), class:"font-medium text-sky-700 uppercase" %>
           </td>
@@ -59,4 +64,7 @@
     </tbody>
   </table>
 </div>
-
+<% else %>
+<p>You don't have any bookings yet...</p>
+<% end %>
+<% end %>
