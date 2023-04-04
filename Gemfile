@@ -85,3 +85,4 @@ gem "graphql"
 gem "graphiql-rails", group: :development
 gem "jwt"
 gem "pry"
+gem "rack-cors"
