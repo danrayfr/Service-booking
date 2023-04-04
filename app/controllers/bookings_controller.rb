@@ -25,7 +25,7 @@ class BookingsController < ApplicationController
         receipt = Receipt.new(user: current_user, booking_id: @booking.id)
         receipt.save
 
-        ReceiptMailer.send_receipt(current_user, @booking).deliver_now
+        ReceiptMailer.send_receipt(current_user, receipt).deliver_now
 
         # binding.pry
         

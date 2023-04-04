@@ -1,7 +1,7 @@
 class ReceiptMailer < ApplicationMailer
-  def send_receipt(user, booking)
+  def send_receipt(user, receipt)
     @user = user
-    @booking = booking
+    @receipt = receipt
     mail(to: @user.email, subject: "Booking Receipt")
   end
 end
