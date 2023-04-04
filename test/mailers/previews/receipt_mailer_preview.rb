@@ -2,7 +2,7 @@
 class ReceiptMailerPreview < ActionMailer::Preview
   def send_receipt_preview
     user = User.first
-    booking = Booking.last
-    ReceiptMailer.send_receipt(user, booking)
+    receipt = Receipt.last
+    ReceiptMailer.send_receipt(user, receipt)
   end
 end
