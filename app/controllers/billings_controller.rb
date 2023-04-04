@@ -19,6 +19,7 @@ class BillingsController < ApplicationController
 
   def create
     @billing = current_user.billings.build(billing_params)
+    @billing.complete_address = @billing.address.attributes.values_at(*%w[street barangay city, zipcode]).join(', ')
 
     respond_to do |format|
       if @billing.save
@@ -30,6 +31,8 @@ class BillingsController < ApplicationController
   end
 
   def update
+    @billing = current_user.billings.build(billing_params)
+    @billing.complete_address = @billing.address.attributes.values_at(*%w[street barangay city, zipcode]).join(', ')
     respond_to do |format|
       if @billing.update(billing_params)
         format.html { redirect_to billing_url(@billing), notice: "Billing was successfully updated." }
@@ -56,6 +59,6 @@ class BillingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def billing_params
-      params.require(:billing).permit(:user_id, address_attributes: %i(street barangay city province zipcode))
+      params.require(:billing).permit(:user_id, :complete_address, address_attributes: %i(street barangay city province zipcode user_id))
     end
 end

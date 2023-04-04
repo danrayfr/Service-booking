@@ -81,3 +81,6 @@ gem "devise"
 gem 'name_of_person'
 gem 'friendly_id', '~> 5.4.0'
 gem 'active_storage_validations'
+gem "graphql"
+gem "graphiql-rails", group: :development
+gem "jwt"
