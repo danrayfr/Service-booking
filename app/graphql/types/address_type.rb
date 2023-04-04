@@ -8,5 +8,6 @@ module Types
     field :city, String
     field :province, String
     field :zipcode, Integer
+    field :user, Types::UserType, null: false
   end
 end
