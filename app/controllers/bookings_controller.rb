@@ -1,6 +1,7 @@
+require "pry"
 class BookingsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :set_bookings,  only: %i(edit update destroy)
+  before_action :set_booking,  only: %i(edit update destroy)
   def index
     @services = Service.all
     @bookings = Booking.all
@@ -21,7 +22,11 @@ class BookingsController < ApplicationController
     respond_to do |format|
       if @booking.save
         
-        Receipt.create(user: current_user, booking_id: @booking.id)
+        receipt = Receipt.new(user: current_user, booking_id: @booking.id)
+
+        receipt.save
+
+        # binding.pry
         
         format.html { redirect_to root_url, notice: "service booking is successfully saved." }
       else
@@ -36,7 +41,7 @@ class BookingsController < ApplicationController
     respond_to do |format|
       if @booking.update(booking_params)
         Receipt.update(user: current_user, booking_id: @booking.id)
-        format.html { redirect_to root_url, notice: "service booking is successfully updated." }
+        format.html { redirect_to dashboard_bookings_url, notice: "service booking is successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -53,8 +58,8 @@ class BookingsController < ApplicationController
 
   private 
 
-  def set_bookings
-    @booking = Bookings.find(params[:id])
+  def set_booking
+    @booking = Booking.find(params[:id])
   end
 
   def booking_params
