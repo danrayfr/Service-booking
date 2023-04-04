@@ -1,0 +1,40 @@
+<% provide(:title, "Dashboard-Services")%>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+  <h1 class="text-5xl font-bold text-gray-700">Services's Dashboard</h1>
+   <%= link_to "Add Service", new_service_path, class: button_class(theme: "primary")%>
+</div>
+
+<table class="table-auto border-collapse border-slate-400 w-full">
+  <thead class="bg-slate-50 dark:bg-slate-700">
+    <tr>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">description</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Image</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available Date</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available Slots</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Category</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Action</th>         
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <%= content_tag :tr, id: dom_id(service), class: dom_class(service) do %>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.id %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= link_to service.name, service_path(service) %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.description.to_plain_text %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag service.image, class:"w-24" %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= service.price %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= Time.strptime(service.available_slots[0]['start_time'], "%H:%M").strftime("%I:%M %p") %>-<%= Time.strptime(service.available_slots[1]['end_time'], "%H:%M").strftime("%I:%M %p") %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.available_slots[2]['slots'] %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.category.name %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
+          <%= link_to "edit", edit_service_path(service), class: button_class(theme: "primary") if current_user.admin? %>
+          <%= link_to "delete", @service, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

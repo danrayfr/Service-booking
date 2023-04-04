@@ -1,0 +1,55 @@
+<% provide(:title, "Dashboard")%>
+<div class="flex items-center justify-between pb-6 border-b">
+  <h1 class="text-5xl font-bold text-gray-700">Dashboard</h1>
+</div>
+
+<div class="py-10 grid grid-cols-3 gap-6">
+  <%= link_to dashboard_bookings_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #87CEEB">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @bookings.count %> bookings</h3>
+    <p class="text-gray-500">View dashboard page for bookings</p>
+  <% end %>
+
+  <%= link_to dashboard_services_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #A3C1AD">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @services.count %> services</h3>
+    <p class="text-gray-500">View dashboard page for services</p>
+  <% end %>
+
+  <%= link_to dashboard_users_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #FFBF00">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @users.count %> users</h3>
+    <p class="text-gray-500">View dashboard page for users</p>
+  <% end %>
+
+  <%= link_to dashboard_payments_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #87CEEB">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @payments.count %> payment methods</h3>
+    <p class="text-gray-500">This are the available payment method when booking</p>
+  <% end %>
+
+  <%= link_to dashboard_receipts_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #A3C1AD">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @receipts.count %> receipt</h3>
+    <p class="text-gray-500">View dashboard page for receipts</p>
+  <% end %>
+
+  <%= link_to dashboard_billings_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #FFBF00">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @billings.count %> billings information</h3>
+    <p class="text-gray-500">List of user's billing information recorded</p>
+  <% end %>
+
+  <%= link_to dashboard_categories_path, class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #7CB9E8">
+    </div>
+    <h3 class="font-medium text-2xl"><%= @categories.count %> categories</h3>
+    <p class="text-gray-500">List of categories</p>
+  <% end %>
+</div>
