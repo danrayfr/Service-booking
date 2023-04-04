@@ -12,8 +12,8 @@
       <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">description</th>
       <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Image</th>
       <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available Date</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available Slots</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available Date(s)</th>
+      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Available</th>
       <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Category</th>
       <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Action</th>         
     </tr>
@@ -23,15 +23,23 @@
     <% @services.each do |service| %>
       <%= content_tag :tr, id: dom_id(service), class: dom_class(service) do %>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= link_to service.name, service_path(service) %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= link_to service.name, service_path(service) %></td>ss
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.description.to_plain_text %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag service.image, class:"w-24" %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= service.price %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= Time.strptime(service.available_slots[0]['start_time'], "%H:%M").strftime("%I:%M %p") %>-<%= Time.strptime(service.available_slots[1]['end_time'], "%H:%M").strftime("%I:%M %p") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.available_slots[2]['slots'] %></td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
+          <% service.available_slots.each do |slot| %>
+            <%= Time.strptime(slot['start_time'],"%H:%M").strftime("%I:%M %p") %> - <%= Time.strptime(slot['end_time'],"%H:%M").strftime("%I:%M %p") %><br><br>
+          <% end %>
+        </td>
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
+          <% service.available_slots.each do |slot| %>
+            <%= slot['slots']%><br>
+          <% end %>
+        </td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.category.name %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
-          <%= link_to "edit", edit_service_path(service), class: button_class(theme: "primary") if current_user.admin? %>
+          <%= link_to "edit", edit_service_path(service), class: button_class(theme: "primary") if current_user.admin? %><br><br>
           <%= link_to "delete", @service, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
         </td>
       <% end %>
