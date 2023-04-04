@@ -17,8 +17,12 @@ class BookingsController < ApplicationController
   def create
     @booking = current_user.bookings.build(booking_params)
 
+    
     respond_to do |format|
       if @booking.save
+        
+        Receipt.create(user: current_user, booking_id: @booking.id)
+        
         format.html { redirect_to root_url, notice: "service booking is successfully saved." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -31,6 +35,7 @@ class BookingsController < ApplicationController
   def update
     respond_to do |format|
       if @booking.update(booking_params)
+        Receipt.update(user: current_user, booking_id: @booking.id)
         format.html { redirect_to root_url, notice: "service booking is successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
