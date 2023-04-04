@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_115115) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_145658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_115115) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "receipts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_receipts_on_booking_id"
+    t.index ["user_id"], name: "index_receipts_on_user_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -151,6 +160,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_115115) do
   add_foreign_key "bookings", "payments"
   add_foreign_key "bookings", "services"
   add_foreign_key "bookings", "users"
+  add_foreign_key "receipts", "bookings"
+  add_foreign_key "receipts", "users"
   add_foreign_key "services", "categories"
   add_foreign_key "services", "users"
 end
