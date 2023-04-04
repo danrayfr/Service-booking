@@ -25,6 +25,8 @@
         <%= address_form.label :zipcode, class: label_class %>
         <%= address_form.text_field :zipcode, class: input_class %>
       </div>
+
+      <%= address_form.hidden_field :user_id, value: current_user.id %>
   <% end %>
 
   <div class="mb-6">

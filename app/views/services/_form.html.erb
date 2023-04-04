@@ -44,7 +44,8 @@
   </div>
 
   <div class="mb-6">
-    <%= form.submit "Create", class: button_class(theme: "primary")%>
+    <%= form.submit "Create", class: button_class(theme: "primary", variant: "expanded") if @service.new_record? %>
+    <%= form.submit "Update", class: button_class(theme: "primary", variant: "expanded") if @service.persisted? %>
   </div>
 
 <% end %>
