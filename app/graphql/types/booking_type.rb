@@ -6,9 +6,9 @@ module Types
     field :status, String
     field :booked_time, String
     field :slot, Integer
-    field :service, ServiceType, null: false, method: :service
-    field :payment, PaymentType, null: false, method: :payment
-    field :billing, BillingType, null: false, method: :billing
-    field :booked_by, UserType, null: false, method: :user
+    field :user, Types::UserType, null: false
+    field :service, ServiceType, null: false
+    field :payment, PaymentType, null: false
+    field :billing, BillingType, null: false
   end
 end
