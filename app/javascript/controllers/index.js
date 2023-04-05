@@ -11,4 +11,4 @@ import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import ServiceFormController from "./service_form_controller"
-application.register("service-form", ServiceFormController)
+application.register("services", ServiceFormController)

@@ -47,7 +47,7 @@ class ServicesController < ApplicationController
 
       respond_to do |format|
         if @service.update(service_params)
-          format.html { redirect_to @service, notice: "Movie was successfully updated." }
+          format.html { redirect_to @service, notice: "Service was successfully updated." }
         end
           format.html { render :new, status: :unprocessable_entity }
       end
