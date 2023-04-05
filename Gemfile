@@ -81,8 +81,9 @@ gem "devise"
 gem 'name_of_person'
 gem 'friendly_id', '~> 5.4.0'
 gem 'active_storage_validations'
-gem "graphql"
-gem "graphiql-rails", group: :development
+gem "graphql", "~> 1.8"
+gem "graphiql-rails", "~> 1.8"
+gem 'search_object_graphql', '0.3.1'
 gem "jwt"
-gem "pry"
+gem "pry", "~> 0.14.1"
 gem "rack-cors"
