@@ -5,6 +5,7 @@ Rails.application.configure do
 
   host = 'localhost:3000'
 
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
 
   config.action_mailer.default_url_options = { host: host, protocol: 'https' } # Use https if deploy on cloud
 
