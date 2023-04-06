@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
   end
 
   def bookings
-    @bookings = Booking.all
+    @bookings = Booking.all.includes(:payment, :user, service: [image_attachment: :blob])
   end
 
   def users
@@ -18,11 +18,11 @@ class DashboardController < ApplicationController
   end
 
   def services
-    @services = Service.all
+    @services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
   end
 
   def billings
-    @billings = Billing.all
+    @billings = Billing.all.includes(:user)
   end
 
   def payments 
@@ -30,10 +30,10 @@ class DashboardController < ApplicationController
   end
 
   def categories
-    @categories = Category.all
+    @categories = Category.all.includes(:rich_text_description, image_attachment: :blob)
   end
 
   def receipts
-    @receipts = Receipt.all
+    @receipts = Receipt.all.includes(:user, booking: [:service, :payment])
   end
 end

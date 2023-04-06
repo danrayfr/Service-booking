@@ -3,7 +3,7 @@ class BookingsController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :set_booking,  only: %i(edit update destroy)
   def index
-    @services = Service.all
+    @services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
     @bookings = Booking.all
   end
 
