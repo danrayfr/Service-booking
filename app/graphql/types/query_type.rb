@@ -19,7 +19,7 @@ module Types
     end
 
     def services
-      Service.all
+      Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
     end
 
     def billings

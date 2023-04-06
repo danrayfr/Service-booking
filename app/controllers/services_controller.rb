@@ -3,8 +3,9 @@ class ServicesController < ApplicationController
   before_action :admin_user
   before_action :set_service, only: %i(show edit update destroy)
   before_action :set_categories, only: %i(new edit)
+  
   def index
-    @services = Service.all.includes(:user)
+    @services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
   end
 
   def show; end

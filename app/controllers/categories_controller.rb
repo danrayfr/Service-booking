@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i(show edit update destroy)
   
   def index
-    @categories = Category.all
+    @categories = Category.all.includes(:rich_text_description, image_attachment: :blob)
   end
 
   def show; end
