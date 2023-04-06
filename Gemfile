@@ -87,3 +87,5 @@ gem 'search_object_graphql', '0.3.1'
 gem "jwt"
 gem "pry", "~> 0.14.1"
 gem "rack-cors"
+
+gem "aws-sdk-s3", "~> 1.119", require: false
