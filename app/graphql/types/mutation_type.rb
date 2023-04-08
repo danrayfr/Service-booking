@@ -6,4 +6,3 @@ module Types
     field :create_billing, mutation: Mutations::CreateBilling
   end
 end
-

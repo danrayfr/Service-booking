@@ -1,29 +1,28 @@
 <% provide(:title, "Dashboard-Billings")%>
 <div class="flex items-center justify-between pb-6 border-b">
   <h1 class="text-5xl font-bold text-gray-700">Billing Information's Dashboard</h1>
-   <%= link_to "Add billing information", new_billing_path, class: button_class(theme: "primary")%>
 </div>
 
 <table class="table-auto border-collapse border-slate-400 w-full">
-  <thead class="bg-slate-50 dark:bg-slate-700">
-    <tr>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Email</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Mobile Number</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Complete Address</th>      
-    </tr>
-  </thead>
+<thead class="bg-slate-50 dark:bg-slate-700">
+  <tr>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Email</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Mobile Number</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Complete Address</th>      
+  </tr>
+</thead>
 
-  <tbody>
-    <% @billings.each do |billing| %>
-      <%= content_tag :tr, id: dom_id(billing), class: dom_class(billing) do %>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= billing.user.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.user.email %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.user.mobile %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.complete_address %></td>
-      <% end %>
+<tbody>
+  <% @billings.each do |billing| %>
+    <%= content_tag :tr, id: dom_id(billing), class: dom_class(billing) do %>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.id %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= billing.user.name %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.user.email %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.user.mobile %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= billing.complete_address %></td>
     <% end %>
-  </tbody>
+  <% end %>
+</tbody>
 </table>

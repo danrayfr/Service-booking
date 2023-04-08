@@ -1,35 +1,34 @@
 <% provide(:title, "Dashboard-Receipts")%>
 <div class="flex items-center justify-between pb-6 border-b mb-6">
   <h1 class="text-5xl font-bold text-gray-700">Receipts Dashboard</h1>
-   <%= link_to "Add Category", new_category_path, class: button_class(theme: "primary")%>
 </div>
 
 <table class="table-auto border-collapse border-slate-400 w-full">
-  <thead class="bg-slate-50 dark:bg-slate-700">
-    <tr>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Date</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Slot</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment Method</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Biller's name</th>
-    </tr>
-  </thead>
+<thead class="bg-slate-50 dark:bg-slate-700">
+  <tr>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Date</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Slot</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment Method</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Biller's name</th>
+  </tr>
+</thead>
 
-  <tbody>
-    <% @receipts.each do |receipt| %>
-      <%= content_tag :tr, id: dom_id(receipt), class: dom_class(receipt) do %>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.service.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= receipt.booking.service.price %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.service.available_date %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.booked_time.strftime("%H:%M %p") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.slot %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.payment.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= receipt.user.name %></td>
-      <% end %>
+<tbody>
+  <% @receipts.each do |receipt| %>
+    <%= content_tag :tr, id: dom_id(receipt), class: dom_class(receipt) do %>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.id %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.service.name %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= receipt.booking.service.price %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.service.available_date %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.booked_time.strftime("%H:%M %p") %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.slot %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= receipt.booking.payment.name %></td>
+      <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= receipt.user.name %></td>
     <% end %>
-  </tbody>
+  <% end %>
+</tbody>
 </table>

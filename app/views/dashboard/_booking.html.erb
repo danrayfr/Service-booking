@@ -1,0 +1,18 @@
+<%= content_tag :tr, id: dom_id(booking), class: dom_class(booking) do %>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.id %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold">
+    <%= form_with(model: booking, method: :patch) do |form| %>
+      <%= form.select :status, options_for_select(Booking.statuses.map { |key, value| [key.capitalize, key] }, 
+      form.object.status), {}, { class: input_class, onchange: "this.form.submit()" }%>
+    <% end %>
+  </td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.name %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= booking.service.price %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag booking.service.image, class: "w-12 h-12" %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.available_date.strftime("%B %d, %Y") %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.booked_time.strftime("%H:%M %p") %></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.slot%> slot(s)</td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.payment.name%></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.user.name%></td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= time_ago_in_words(booking.created_at) %> ago</td>
+<% end %>
