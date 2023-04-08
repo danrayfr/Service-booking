@@ -23,7 +23,7 @@
     <% @services.each do |service| %>
       <%= content_tag :tr, id: dom_id(service), class: dom_class(service) do %>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= link_to service.name, service_path(service) %></td>ss
+        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold"><%= link_to service.name, service_path(service) %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.description.to_plain_text %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag service.image, class:"w-24" %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= service.price %></td>

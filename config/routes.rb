@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :billings
   resources :bookings
   
-
+  # routes only accessible to admin
   authenticated :user, ->(user) { user.admin? } do
     get "dashboard", to: "dashboard#index"
     get "dashboard/bookings"

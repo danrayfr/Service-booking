@@ -1,155 +1,109 @@
 <% provide(:title, "Dashboard-Bookings")%>
 <div class="flex items-center justify-between pb-6 border-b">
   <h1 class="text-5xl font-bold text-gray-700">Booking's Dashboard</h1>
-   <%= link_to "Add billing information", new_billing_path, class: button_class(theme: "primary")%>
 </div>
 
 <div class="py-10 grid grid-cols-3 gap-6">
-  <%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
-    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #87CEEB">
-    </div>
-    <h3 class="font-medium text-2xl"><%= @bookings.where(status: "pending").count %> pending</h3>
-    <p class="text-gray-500">total number of bookings currently pending</p>
-  <% end %>
+<%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+  <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #87CEEB">
+  </div>
+  <h3 class="font-medium text-2xl"><%= @bookings.pending.count %> pending</h3>
+  <p class="text-gray-500">total number of bookings currently pending</p>
+<% end %>
 
-  <%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
-    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #A3C1AD">
-    </div>
-    <h3 class="font-medium text-2xl"><%= @bookings.where(status: "served").count %> served</h3>
-    <p class="text-gray-500">total number of bookings currently served</p>
-  <% end %>
+<%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+  <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #A3C1AD">
+  </div>
+  <h3 class="font-medium text-2xl"><%= @bookings.served.count %> served</h3>
+  <p class="text-gray-500">total number of bookings currently served</p>
+<% end %>
 
-  <%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
-    <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #FFBF00">
-    </div>
-    <h3 class="font-medium text-2xl"><%= @bookings.where(status: "cancelled").count %> cancelled</h3>
-    <p class="text-gray-500">total number of bookings currently cancelled</p>
-  <% end %>
+<%= link_to "#", class:"p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+  <div class="h-1 w-full absolute top-0 left-0 right-0" style="background-color: #FFBF00">
+  </div>
+  <h3 class="font-medium text-2xl"><%= @bookings.cancelled.count %> cancelled</h3>
+  <p class="text-gray-500">total number of bookings currently cancelled</p>
+<% end %>
 </div>
 
 
+<% if @bookings.pending.any? %>
 <h3 class="font-bold text-2xl mb-6 mt-10 pt-10 ">Pending Bookings</h3>
 <table class="table-auto border-collapse border-slate-400 w-full">
-  <thead class="bg-slate-50 dark:bg-slate-700">
-    <tr>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
-    </tr>
-  </thead>
+<thead class="bg-slate-50 dark:bg-slate-700">
+  <tr>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+  </tr>
+</thead>
 
-  <tbody>
-    <% @bookings.where(status: "pending").each do |booking| %>
-      <%= content_tag :tr, id: dom_id(booking), class: dom_class(booking) do %>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold">
-          <%= form_with(model: booking, method: :patch) do |form| %>
-            <%= form.select :status, options_for_select(Booking.statuses.map { |key, value| [key.capitalize, key] }, 
-            form.object.status), {}, { class: input_class, onchange: "this.form.submit()" }%>
-          <% end %>
-        </td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= booking.service.price %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag booking.service.image, class: "w-12 h-12" %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.available_date.strftime("%B %d, %Y") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.booked_time.strftime("%H:%M %p") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.slot%> slot(s)</td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.payment.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.user.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= time_ago_in_words(booking.created_at) %> ago</td>
-      <% end %>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @bookings.pending.each do |booking| %>
+    <%= render "booking", booking: booking %>
+  <% end %>
+</tbody>
 </table>
+<% end%>
 
+<% if @bookings.served.any? %>
 <h3 class="font-bold text-2xl mb-6 mt-10 pt-10 ">Served Bookings</h3>
 <table class="table-auto border-collapse border-slate-400 w-full">
-  <thead class="bg-slate-50 dark:bg-slate-700">
-    <tr>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
-    </tr>
-  </thead>
+<thead class="bg-slate-50 dark:bg-slate-700">
+  <tr>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+  </tr>
+</thead>
 
-  <tbody>
-    <% @bookings.where(status: "served").each do |booking| %>
-      <%= content_tag :tr, id: dom_id(booking), class: dom_class(booking) do %>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold">
-          <%= form_with(model: booking, method: :patch) do |form| %>
-            <%= form.select :status, options_for_select(Booking.statuses.map { |key, value| [key.capitalize, key] }, 
-            form.object.status), {}, { class: input_class, onchange: "this.form.submit()" }%>
-          <% end %>
-        </td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= booking.service.price %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag booking.service.image, class: "w-12 h-12" %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.available_date.strftime("%B %d, %Y") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.booked_time.strftime("%H:%M %p") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.slot%> slot(s)</td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.payment.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.user.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= time_ago_in_words(booking.created_at) %> ago</td>
-      <% end %>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @bookings.served.each do |booking| %>
+    <%= render "booking", booking: booking %>
+  <% end %>
+</tbody>
 </table>
+<% end %>
 
+<% if @bookings.cancelled.any? %>
 <h3 class="font-bold text-2xl mb-6 mt-10 pt-10 ">Pending Bookings</h3>
 <table class="table-auto border-collapse border-slate-400 w-full mb-24">
-  <thead class="bg-slate-50 dark:bg-slate-700">
-    <tr>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-      <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
-    </tr>
-  </thead>
+<thead class="bg-slate-50 dark:bg-slate-700">
+  <tr>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">id</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Status</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Name</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Price</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Service Image</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Date</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked Time</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+  </tr>
+</thead>
 
-  <tbody>
-    <% @bookings.where(status: "cancelled").each do |booking| %>
-      <%= content_tag :tr, id: dom_id(booking), class: dom_class(booking) do %>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.id %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-sky-800 underline font-bold">
-          <%= form_with(model: booking, method: :patch) do |form| %>
-            <%= form.select :status, options_for_select(Booking.statuses.map { |key, value| [key.capitalize, key] }, 
-            form.object.status), {}, { class: input_class, onchange: "this.form.submit()" }%>
-          <% end %>
-        </td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.name %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">₱<%= booking.service.price %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= image_tag booking.service.image, class: "w-12 h-12" %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.service.available_date.strftime("%B %d, %Y") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.booked_time.strftime("%H:%M %p") %></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.slot%> slot(s)</td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.payment.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.user.name%></td>
-        <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= time_ago_in_words(booking.created_at) %> ago</td>
-      <% end %>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @bookings.cancelled.each do |booking| %>
+    <%= render "booking", booking: booking %>
+  <% end %>
+</tbody>
 </table>
+<% end %>

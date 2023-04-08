@@ -30,7 +30,6 @@ module Types
       Booking.all
     end
 
-
     # Get service by id/slug
     field :service, ServiceType, null: false do 
       argument :id, ID, required: true
