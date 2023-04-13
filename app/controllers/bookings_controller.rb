@@ -24,11 +24,7 @@ class BookingsController < ApplicationController
         
         receipt = Receipt.new(user: current_user, booking_id: @booking.id)
         receipt.save
-
         ReceiptMailer.send_receipt(current_user, receipt).deliver_now
-
-        # binding.pry
-        
         format.html { redirect_to root_url, notice: "service booking is successfully saved." }
       else
         format.html { render :new, status: :unprocessable_entity }

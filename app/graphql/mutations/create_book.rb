@@ -1,4 +1,3 @@
-require "pry"
 module Mutations
   class CreateBook < Mutations::BaseMutation
     argument :booked_time, String, required: true
@@ -20,8 +19,6 @@ module Mutations
         errors << "User must be authenticated to book"
         return { booking: [], errors: errors }
       end
-      
-      # binding.pry
       
       booking = user.bookings.build(
         booked_time: booked_time, 
