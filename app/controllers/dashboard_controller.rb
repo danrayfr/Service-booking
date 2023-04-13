@@ -14,6 +14,11 @@ class DashboardController < ApplicationController
 
   def bookings
     @bookings = Booking.all.includes(:payment, :user, service: [image_attachment: :blob])
+    @most_booked_services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
+                                        .joins(:bookings)
+                                        .group('services.id')
+                                        .order('COUNT(bookings.id) DESC')
+                                        .limit(1) # Limit the result to 3 records
   end
 
   def users

@@ -16,4 +16,5 @@ class User < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :billings, dependent: :destroy
   has_many :receipts, dependent: :destroy
+  has_one :cart, dependent: :destroy
 end

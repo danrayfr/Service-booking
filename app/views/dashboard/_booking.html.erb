@@ -15,4 +15,7 @@
   <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.payment.name%></td>
   <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= booking.user.name%></td>
   <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= time_ago_in_words(booking.created_at) %> ago</td>
+  <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
+    <%= link_to "Delete", booking, data: { turbo_method: :delete }, class: "bg-rose-500 hover:bg-rose-600 text-white rounded-md px-4 py-2 mt-2" %>
+  </td>
 <% end %>
