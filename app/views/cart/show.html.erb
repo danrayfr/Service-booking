@@ -1,0 +1,40 @@
+<% provide(:title, "#{current_user.name}'s Cart")%>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+<h1 class="text-5xl font-bold text-gray-700">Cart</h1>
+</div>
+<div class="container mx-auto px-4 py-8">
+
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-full md:w-1/2 lg:w-2/3 px-4">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-lg font-semibold mb-6">Cart Item(s)</h2>
+
+        <ul class="divide-y divide-gray-300">
+          <!-- Loop through cart items and display them -->
+          <% @cart.cart_items.each do |items| %>
+          <% service = items.service %>
+          <li class="flex items-center py-4">
+            <%= image_tag service.image, class: "w-16 h-16 object-cover rounded-md"%>
+            <div class="ml-4">
+              <h3 class="text-lg font-semibold"><%= service.name %></h3>
+              <p class="text-gray-600"><%= service.price %></p>
+              <p class="text-gray-600">Slots: <%= items.slot %></p>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-lg font-semibold mb-6">Order Summary</h2>
+        <p class="text-gray-600">Total: <%= @cart.total %></p>
+        <%= link_to new_booking_path(cart: @cart)  do %>
+          <button class="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+            Proceed to Checkout
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<% provide(:title, "Book")%>
+<div class="flex items-center justify-between pb-6 border-b mb-6">
+  <h1 class="text-5xl font-bold text-gray-700">Checkout Booking</h1>
+</div>
+
+<%= form_with(model: @booking) do |form| %>
+<div class="h-screen grid grid-cols-3">
+<div class="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
+    <div class="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
+        <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
+            <div class="text-sky-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 sm:w-5 h-6 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div class="text-sm font-medium ml-3">Checkout</div>
+        </div>
+        <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Complete your shipping and payment details below.</div>
+        <div class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+    </div>
+    <div class="rounded-md">
+      <form id="payment-form" method="POST" action="">
+        <section>
+          <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
+            <div class="mb-6">
+              <%= form.label :billing_id, class: label_class %>
+              <%billing = Billing.where(user_id: current_user) %>
+              <%= link_to 'Provide or add new billing address here.', new_billing_path, class: "text-sky-500 font-normal mb-6" %>
+              <%= form.collection_select :billing_id, Billing.where(user_id: current_user), :id, :complete_address, {}, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" %>
+            </div>
+        </section>
+      </form>
+    </div>
+    <div class="rounded-md">
+        <section>
+            <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Payment Option</h2>
+
+            <div class="mb-6">
+              <%= form.label :payment_id, class: label_class %>
+              <%= form.collection_select :payment_id, Payment.all, :id, :name, {}, class:"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" %>
+            </div>
+        </section>
+    </div>
+
+    <div class="mb-6">
+    <%= form.submit "Book the service(s) and pay ₱#{@cart.total}", class:"submit-button px-4 py-3 rounded-full bg-sky-400 hover:bg-sky-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" %>
+  </div>
+</div>
+
+<div class="col-span-1 bg-white lg:block hidden">
+    <h1 class="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
+    <% @cart.cart_items.each do |cart_item| %>
+    <ul class="py-6 border-b space-y-6 px-8">
+        <li class="grid grid-cols-6 gap-2 border-b-1">
+            <div class="col-span-1 self-center">
+              <%= image_tag cart_item.service.image, class: "rounded w-full"%>
+            </div>
+            <div class="flex flex-col col-span-3 pt-2">
+                <span class="text-gray-600 text-md font-semi-bold"><%= cart_item.service.name %></span>
+                <span class="text-gray-400 text-sm inline-block pt-2"><%= cart_item.service.available_date.strftime("%B %e, %Y") %></span>
+                <span class="text-gray-400 text-sm inline-block pt-2"><%= cart_item.booked_time.strftime("%I:%M %p") %></span>
+            </div>
+            <div class="col-span-2 pt-3">
+                <div class="flex items-center space-x-2 text-sm justify-between">
+                    <span class="text-gray-400"><%= cart_item.slot %> x <%= cart_item.service.price %></span>
+                    <span class="text-sky-400 font-semibold inline-block">₱<%= cart_item.service.price * cart_item.slot %></span>
+                </div>
+            </div>
+            <%= form.hidden_field :cart_id, multiple: true, value: cart_item.id %>
+        </li>
+    </ul>
+    <% end %>
+    <div class="px-8 border-b">
+        <div class="flex justify-between py-4 text-gray-600">
+            <span>Subtotal</span>
+            <span class="font-semibold text-sky-500">₱<%= @cart.total %></span>
+        </div>
+        <div class="flex justify-between py-4 text-gray-600">
+            <span>Shipping</span>
+            <span class="font-semibold text-sky-500">Free</span>
+        </div>
+    </div>
+    <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
+        <span>Total</span>
+        <span>₱<%= @cart.total %></span>
+    </div>
+</div>
+<% end %>

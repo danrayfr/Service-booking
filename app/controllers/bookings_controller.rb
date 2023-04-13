@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
   before_action :set_booking,  only: %i(edit update destroy)
   def index
     @services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
-    @bookings = Booking.all
+    @bookings = Booking.all.includes(:service)
   end
 
   def show
@@ -13,23 +13,37 @@ class BookingsController < ApplicationController
   end
 
   def new
+    @booking = Booking.new
+    @cart_id = params[:cart] # Retrieve cart id from params
+    @cart = Cart.find(@cart_id) # Find cart based on cart id
   end
-
+  
   def create
-    @booking = current_user.bookings.build(booking_params)
-
-    
-    respond_to do |format|
+    # Iterate through cart items
+    @cart.cart_items.each do |cart_item|
+      # Build Booking object for each cart item
+      @booking = current_user.bookings.build(booking_params)
+  
+      # Set service_id, booked_time, and slot from cart_item
+      @booking.service_id = cart_item.service_id
+      @booking.booked_time = cart_item.booked_time
+      @booking.slot = cart_item.slot
+  
       if @booking.save
-        
-        receipt = Receipt.new(user: current_user, booking_id: @booking.id)
+        receipt = Receipt.new(user: current_user, booking_id: @booking.id, total_amount: @cart.total)
         receipt.save
         ReceiptMailer.send_receipt(current_user, receipt).deliver_now
-        format.html { redirect_to root_url, notice: "service booking is successfully saved." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-      end      
+        # Render error message and stop processing further items if saving fails for any item
+        render :new, status: :unprocessable_entity
+        return
+      end
     end
+  
+    # Redirect after saving all bookings
+    redirect_to root_path, notice: "Bookings saved successfully."
+
+    @cart.cart_items.where(user: current_user).delete_all
   end
 
   def edit; end
@@ -48,7 +62,7 @@ class BookingsController < ApplicationController
   def destroy
     respond_to do |format|
       if @booking.destroy
-        format.html { redirect_to root_url, notice: "service booking deleted successfully!" }
+        format.html { redirect_to dashboard_bookings_url, notice: "service booking deleted successfully!" }
       end
     end
   end
@@ -60,6 +74,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:status, :user_id, :service_id, :payment_id, :booked_time, :slot, :billing_id)
+    params.require(:booking).permit(:status, :user_id, :billing_id, :payment_id, :service_id, :booked_time, :slot)
   end
 end 

@@ -39,8 +39,8 @@
         </td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800"><%= service.category.name %></td>
         <td class="border border-slate-300 dark:border-slate-700 p-4 text-gray-800">
-          <%= link_to "edit", edit_service_path(service), class: button_class(theme: "primary") if current_user.admin? %><br><br>
-          <%= link_to "delete", @service, data: { turbo_method: :delete}, class: button_class(theme: "dark") if current_user.admin? %>
+          <%= link_to "edit", edit_service_path(service), class: "bg-sky-500 hover:bg-sky-600 text-white rounded-md px-4 py-2 mt-2" if current_user.admin? %><br><br>
+          <%= link_to "delete", @service, data: { turbo_method: :delete}, class: "bg-rose-500 hover:bg-rose-600 text-white rounded-md px-4 py-2 mt-2" if current_user.admin? %>
         </td>
       <% end %>
     <% end %>

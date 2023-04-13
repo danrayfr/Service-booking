@@ -1,6 +1,17 @@
 <% provide(:title, "Dashboard-Bookings")%>
 <div class="flex items-center justify-between pb-6 border-b">
   <h1 class="text-5xl font-bold text-gray-700">Booking's Dashboard</h1>
+  <div>
+  <h1 class="text-xl font-semibold text-gray-900">Most Booked Services</h1>
+  <% if @most_booked_services.present? %>
+    <% @most_booked_services.each do |service| %>
+      <p>Service Name: <strong class="uppercase"><%= service.name %></strong></p>
+      <p>Booking Count: <strong><%= service.bookings.count %></strong> </p>
+    <% end %>
+  <% else %>
+    <p>No services found.</p>
+  <% end %>
+</div>
 </div>
 
 <div class="py-10 grid grid-cols-3 gap-6">
@@ -42,7 +53,8 @@
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>   
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Action</th>         
   </tr>
 </thead>
 
@@ -69,7 +81,8 @@
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Action</th>        
   </tr>
 </thead>
 
@@ -96,7 +109,8 @@
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked slot(s)</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Payment method</th>
     <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked by</th> 
-    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>      
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Booked last</th>  
+    <th class="border border-slate-300 dark:border-slate-600 text-gray-100 font-semibold p-4">Action</th>      
   </tr>
 </thead>
 
