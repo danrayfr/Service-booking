@@ -1,4 +1,3 @@
-require "pry"
 module Mutations
   class CreateUser < Mutations::BaseMutation
 
@@ -23,8 +22,6 @@ module Mutations
         password: auth_provider&.[](:credentials)&.[](:password),
         password_confirmation: auth_provider&.[](:credentials)&.[](:password_confirmation)
       )
-
-      #   binding.pry
 
       if user.save
         { user: user, errors: [], }

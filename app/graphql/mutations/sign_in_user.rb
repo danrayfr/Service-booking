@@ -1,5 +1,4 @@
 require 'jwt'
-require "pry"
 module Mutations
   class SignInUser < BaseMutation
     null true
@@ -42,7 +41,6 @@ module Mutations
         
         context[:session][:token] = token
         { user: user, token: token, errors: [] }
-        # binding.pry
       else
         { user: nil, token: nil, errors: errors }
       end
