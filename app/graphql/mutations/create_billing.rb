@@ -15,7 +15,7 @@ module Mutations
       user = context[:current_user]
 
       unless user
-        errors << "User must be authenticated to book"
+        errors << "User must be authenticated to add billing address"
         return { billing: [], errors: errors }
       end
       

@@ -20,6 +20,18 @@ module Mutations
         return { booking: [], errors: errors }
       end
       
+      if user # Assuming you are using Devise or a similar authentication gem
+        @cart ||= user.cart || Cart.create(user: current_user) # Associate cart with the logged-in user
+      else
+        @cart ||= Cart.find_by(id: session[:cart_id]) # Fallback to session-based cart for guests
+      end
+    
+      if @cart.nil?
+        @cart = Cart.create
+        session[:cart_id] = @cart.id unless user_signed_in? # Store cart_id in session only for guests
+      end
+
+
       booking = user.bookings.build(
         booked_time: booked_time, 
         slot: slot, 
@@ -32,10 +44,9 @@ module Mutations
         receipt = Receipt.new(user: user, booking_id: booking.id)
         receipt.save
         ReceiptMailer.send_receipt(user, receipt).deliver_now
+        @cart.cart_items.where(user: user).delete_all
         
         { booking: booking, errors: [] }
-
-
       else
         { booking: nil, errors: booking.errors.full_messages }
       end

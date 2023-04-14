@@ -31,13 +31,13 @@ module Mutations
       if errors.empty?
         
         # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
-        crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-        token = crypt.encrypt_and_sign("user-id:#{ user.id }")
+        # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+        # token = crypt.encrypt_and_sign("user-id:#{ user.id }")
         
-        # secret_key= Rails.application.credentials.secret_key_base
-        # algorithm = 'HS256'
-        # payload = { user_id: user.id, iat: Time.current.to_i, exp: 3.days.from_now.to_i }
-        # token = JWT.encode(payload, secret_key, algorithm)
+        secret_key= Rails.application.credentials.secret_key_base
+        algorithm = 'HS256'
+        payload = { user_id: user.id, iat: Time.current.to_i, exp: 3.days.from_now.to_i }
+        token = JWT.encode(payload, secret_key, algorithm)
         
         context[:session][:token] = token
         { user: user, token: token, errors: [] }

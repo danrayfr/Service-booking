@@ -10,14 +10,16 @@ module Mutations
 
     def resolve(service_id:, slot:, booked_time:)
       errors = []
+      user = context[:current_user]
+      # binding.pry
       # Authenticate user before performing any action
-      unless context[:current_user]
+      unless user
         errors <<  "You need to authenticate to perform this action."
         return { cart_items: [], errors: errors }
       end
-
+      
+      
       service = Service.find_by(id: service_id)
-      user = context[:current_user]
 
       if user # Assuming you are using Devise or a similar authentication gem
         @cart ||= user.cart || Cart.create(user: current_user) # Associate cart with the logged-in user
