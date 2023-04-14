@@ -24,22 +24,22 @@ class GraphqlController < ApplicationController
   end
 
   def current_user
-    # return unless session[:token]
-    secret_key = Rails.application.credentials.secret_key_base
-    token = get_bearer_token
-    return unless token.present?
+    return unless session[:token]
+  #   secret_key = Rails.application.credentials.secret_key_base
+  #   token = get_bearer_token
+  #   return unless token.present?
+# 
+  #   algorithm = 'HS256'
+  #   decoded_token = JWT.decode(token, secret_key, true, { algorithm: algorithm })
+  #   user_id = decoded_token.first["user_id"]
+  #   User.find_by(id: user_id)
+  # rescue JWT::DecodeError => e
+  #   nil
 
-    algorithm = 'HS256'
-    decoded_token = JWT.decode(token, secret_key, true, { algorithm: algorithm })
-    user_id = decoded_token.first["user_id"]
-    User.find_by(id: user_id)
-  rescue JWT::DecodeError => e
-    nil
-
-    # crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-    # token = crypt.decrypt_and_verify session[:token]
-    # user_id = token.gsub('user-id:', '').to_i
-    # User.find user_id
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+    token = crypt.decrypt_and_verify session[:token]
+    user_id = token.gsub('user-id:', '').to_i
+    User.find user_id
   # rescue ActiveSupport::MessageVerifier::InvalidSignature
   end
 

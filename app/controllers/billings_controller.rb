@@ -1,3 +1,4 @@
+require "pry"
 class BillingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_billing, only: %i[ show edit update destroy ]
@@ -23,7 +24,7 @@ class BillingsController < ApplicationController
 
     respond_to do |format|
       if @billing.save
-        format.html { redirect_to billings_url, notice: "Billing was successfully created." }
+        format.html { redirect_to cart_url, notice: "Billing was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

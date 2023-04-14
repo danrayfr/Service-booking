@@ -9,6 +9,8 @@ module Types
     field :services, [Types::ServiceType], null: false
     field :billings, [Types::BillingType], null: false
     field :bookings, [Types::BookingType], null: false
+    field :cart_items, [Types::CartItemType], null: false
+    field :carts, [Types::CartType], null: false
 
     def users
       User.all
@@ -28,6 +30,14 @@ module Types
 
     def bookings
       Booking.all
+    end
+
+    def cart_items
+      CartItem.where(user: context[:current_user])
+    end
+
+    def carts
+      Cart.all
     end
 
     # Get service by id/slug
