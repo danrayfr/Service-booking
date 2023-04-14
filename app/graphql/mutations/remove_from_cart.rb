@@ -30,8 +30,6 @@ module Mutations
       end
 
       cart_item = @cart.cart_items.find_by(id: cart_item_id)
-
-      binding.pry
       
       if cart_item.nil? 
         errors << "Cart item not found."
