@@ -78,11 +78,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_13_185207) do
     t.integer "status", default: 0
     t.bigint "user_id", null: false
     t.bigint "service_id", null: false
+    t.bigint "payment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.time "booked_time"
     t.integer "slot"
-    t.bigint "payment_id", null: false
     t.bigint "billing_id", null: false
     t.index ["billing_id"], name: "index_bookings_on_billing_id"
     t.index ["payment_id"], name: "index_bookings_on_payment_id"
