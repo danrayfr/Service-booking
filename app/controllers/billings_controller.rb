@@ -1,22 +1,20 @@
 require "pry"
 class BillingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_billing, only: %i[ show edit update destroy ]
+  before_action :set_billing, only: %i(show edit update destroy)
 
   def index
     @billings = Billing.all
   end
 
-  def show
-  end
-
+  def show; end
+  
   def new
     @billing = current_user.billings.build
     @billing.build_address
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @billing = current_user.billings.build(billing_params)
@@ -42,7 +40,7 @@ class BillingsController < ApplicationController
       end
     end
   end
-
+  
   def destroy
     @billing.destroy
 
@@ -53,12 +51,10 @@ class BillingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_billing
       @billing = Billing.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def billing_params
       params.require(:billing).permit(:user_id, :complete_address, address_attributes: %i(street barangay city province zipcode user_id))
     end

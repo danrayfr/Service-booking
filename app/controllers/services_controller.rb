@@ -1,8 +1,9 @@
 class ServicesController < ApplicationController
+  include Categoryable
+
   before_action :authenticate_user!, except: :index
   before_action :admin_user
   before_action :set_service, only: %i(show edit update destroy)
-  before_action :set_categories, only: %i(new edit)
   
   def index
     @services = Service.all.includes(:category, :rich_text_description, image_attachment: :blob)
@@ -50,7 +51,7 @@ class ServicesController < ApplicationController
         if @service.update(service_params)
           format.html { redirect_to @service, notice: "Service was successfully updated." }
         end
-          format.html { render :new, status: :unprocessable_entity }
+          format.html { render :edit, status: :unprocessable_entity }
       end
     else
       flash[:error] = "You must be an admin to update a new service."
@@ -70,11 +71,7 @@ class ServicesController < ApplicationController
   def set_service
     @service = Service.friendly.find(params[:id])
   end
-
-  def set_categories
-    @categories = Category.all.order(:name)
-  end
-
+  
   def service_params
       params.require(:service).permit(:name, :description, :image, :price, :available_date, :user_id, :category_id, available_slots: [])
   end

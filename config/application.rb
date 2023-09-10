@@ -27,6 +27,5 @@ module ServiceBooking
       :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
     ]
     
-    
   end
 end

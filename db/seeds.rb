@@ -20,5 +20,3 @@ Payment.create!(name: "Bank")
 Payment.create!(name: "GCash")
 Payment.create!(name: "COD")
 Payment.create!(name: "Pay at the Store")
-
-

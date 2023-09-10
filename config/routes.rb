@@ -1,16 +1,11 @@
 Rails.application.routes.draw do
-  get 'cart/show'
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
-  end
-  post "/graphql", to: "graphql#execute"
-  
   # routes only accessible to users
   resources :billings
   resources :bookings
   get "cart", to: "cart#show"
   post "cart/add"
   post "cart/remove"
+  get 'cart/show'
   
   # routes only accessible to admin
   authenticated :user, ->(user) { user.admin? } do
@@ -33,4 +28,10 @@ Rails.application.routes.draw do
   # errors route 
   match "/404", to: "errors#not_found", via: :all
   match "/505", to: "errors#internal_server_error", via: :all
+
+  # graphql
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+  post "/graphql", to: "graphql#execute"
 end
